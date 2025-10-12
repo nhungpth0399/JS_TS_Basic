@@ -162,6 +162,7 @@ myDog.bark()
 
 // 4. Tinh da hinh: cung mot hanh dong nhung thuc hien bang nhung cach khac nhau
 // VD cung la Di chuyen. Con nguoi thi di bang chan, ca boi bang vay, chim bay bang canh
+// JS ko ho tro da ke thua
 
 class Shape {
     draw(){
@@ -187,4 +188,155 @@ class Square extends Shape {
 const shapes = [new Circle(), new Square(), new Shape()]
 
 shapes.forEach(shape => shape.draw())
+
+// xay dung mot project automation theo page object
+// 
+// page-object
+// -- BasePage.js => class cha chua cacs hanh dong chung
+// -- LoginPage.js => class cho trang dang nhap
+// -- HomePage.js => class cho trang chu
+// tests
+// login.test.js // kich ban test
+// export => import
+
+// file basePage.js
+
+class BasePage {
+    constructor(page, url){
+        this.page = page
+        this.url = url
+    }
+
+    async navigateTo(){
+        console.log(`ACTION: dang dieu huong toi trang ${this.url}`);
+        
+    }
+}
+
+// file LoginPage.js
+// Playwright => se co mot gia tri la page
+
+class LoginPage extends BasePage {
+    // locator (vi tri cac element tren UI)
+    userNameInput = '#username'
+    passwordInput = '#password'
+    loginButton = '#login-button'
+
+    constructor(page){
+        super(page, '/login')
+    }
+
+    async enterUsername(username){
+        // this.page.locator(this.userNameInput).fill(username)
+        console.log(`ACTION: Nhap username ${username} vao o ${this.userNameInput}`);
+        
+    }
+
+    async enterPassword(password){
+        console.log(`ACTION: Nhap password ${password} vao o ${this.passwordInput}`);
+        
+    }
+
+    async clickLoginButton(){
+        console.log(`ACTION: Click vao o ${this.loginButton}`);
+        
+    }
+
+    async login(username, password){
+        console.log(`WORKFLOW - THUC HIEN DANG NHAP VOI USER ${username}`);
+        await this.enterUsername(username)
+        await this.enterPassword(password)
+        await this.clickLoginButton()
+        
+    }
+}
+
+
+class HomePage extends BasePage {
+    welComeMessage = '#welcome-message'
+
+    constructor(page){
+        super(page, '/home')
+    }
+
+    async getWelcomMessage(){
+        console.log(`ACTION: Lay noi dung tu ${this.welComeMessage}`);
+        return 'Chao mung ban quay tro lai'
+        
+    }
+}
+
+// file login.test.js
+
+async function runLoginTest() {
+    console.log(`BAT DAU KICH BAN - DANG NHAP THANH CONG`);
+    
+    // gia lap doi tuong 'page'
+    const fakePage = {name: 'Fake page'}
+
+    const loginPage = new LoginPage(fakePage)
+    const homePage = new HomePage(fakePage)
+
+    //1. Dieu huong toi trang dang nhap
+
+    await loginPage.navigateTo()
+
+    // 2. Thuc hien hanh dong dang nhap
+
+    await loginPage.login('Nhung', '1234567')
+
+    //3. Chuyen sang trang chu va lay ket qua
+
+    homePage.navigateTo()
+    const message =  await homePage.getWelcomMessage()
+
+    if (message.includes('Chao mung ban quay tro lai')){
+        console.log(`TEST PASSED`);
+        
+    }else{
+        console.log(`TEST FAILED`);
+        
+    }
+}
+
+
+runLoginTest()
+
+//==================
+
+class BankAccount {
+    #balance
+
+    constructor(soDuBanDau){
+        if(soDuBanDau > 0){
+            this.#balance = soDuBanDau
+        }else{
+            this.#balance = 0
+        }
+    }
+
+    get balance(){
+        console.log(`-> better duoc goi: lay so du`);
+        return this.#balance
+    }
+
+    set balance(soTien){
+        console.log(`-> setter duoc goi`);
+        this.#balance = soTien
+    }
+
+    rutTien(soTien){
+        if(soTien > this.#balance){
+            console.error('Loi ko du so du')
+        }
+        this.#balance -= soTien
+    }
+}
+
+const taiKhoanBank =  new BankAccount(50000)
+console.log(taiKhoanBank.balance)
+
+taiKhoanBank.balance = -20000
+console.log(taiKhoanBank.balance)
+
 
