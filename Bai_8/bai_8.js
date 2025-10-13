@@ -184,9 +184,18 @@ async function layDanhSachBook() {
 
 layDanhSachBook()
 
+//1. loc sach dang ban co status = 1
+//2. loc sach co gia cao > 200000
+//3. loc sach vua dang ban co anh
+
+// filter
+
+async function lamBaiTap() {
+    
+}
 
 
-
+const sachDangBan = books.filter()
 
 
 
