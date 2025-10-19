@@ -191,11 +191,75 @@ layDanhSachBook()
 // filter
 
 async function lamBaiTap() {
+    const books = await layDanhSachBook()
+    const sachDangBan = books.filter(book => book.status === 1)
+    console.log(`Dang co status = 1`,sachDangBan)
+
+    const sachGiaCao = books.filter(book => book.price > 500)
+    console.log(`sach gia cao: `, sachGiaCao);
+
+    const sachDangBanCoAnh = books.filter(book => {
+        return book.status === 1 && book.image && book.image.length > 0
+    })
+    
+    console.log(`Sach vua co Anh vua dang ban`, sachDangBanCoAnh);
     
 }
 
 
-const sachDangBan = books.filter()
+lamBaiTap()
+
+//=====================
+
+
+class APIService{
+
+    constructor(baseUrl){
+        this.baseUrl = baseUrl
+    }
+
+    async fetchData(endPoint){
+        const fullUrl = `${this.baseUrl}/${endPoint}`
+
+        try{
+            const response = await fetch(fullUrl)
+
+            if(!response.ok){
+                throw new Error(`Loi HTTP trang thai ${response.status}`)
+            }
+
+            const data = await response.json()
+
+            return data
+        }catch(error){
+
+        }
+    }
+}
+
+
+async function main() {
+    const jsonAPI = new APIService('https://api.anhtester.com/')
+
+    const bookData = await jsonAPI.fetchData('api/books')
+
+    console.log('Data ex ',bookData);
+    
+}
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
