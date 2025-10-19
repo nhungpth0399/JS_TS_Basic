@@ -10,6 +10,7 @@
         
 //         // khoa chinh chuong trinh
 //     }   
+
 //     console.log(`Tinh toan nang da xong`);
 // }
 
@@ -239,30 +240,66 @@ class APIService{
 
 
 async function main() {
-    const jsonAPI = new APIService('https://api.anhtester.com/')
+    const jsonAPI = new APIService('https://api.anhtester.com')
 
     const bookData = await jsonAPI.fetchData('api/books')
 
-    console.log('Data ex ',bookData);
+    console.log('Data example ', bookData);
     
 }
 
 main()
 
+//=======================
 
 
+function nuongBanh(){
+    console.log(`Bep truong dat banh vap lo, se mat 5s`);
+
+    return new Promise(resolve =>{
+        setTimeout(() =>{
+            resolve('Banh da chin')
+        }, 5000)
+    })
+    
+}
+
+async function congViecBepTruong() {
+    console.log(`Bep truong: Bat dau cong thuc lam banh`);
+
+    const ketQuaBanh = await nuongBanh()
+    
+    console.log(`Bep truong: ${ketQuaBanh} That tuyet`);
+    
+}
+
+function congViecPhuBep(){
+    let soLanLauDon = 0
+
+    setInterval(() =>{
+        soLanLauDon++
+        console.log(`Phu beo. Dang lau con lan ${soLanLauDon}`);
+        
+    }, 1000)
+}
+
+console.log(`Nha bep mo cua`);
+
+//congViecPhuBep()
+congViecBepTruong()
+
+console.log(`Bep truong dang lam banh, nhung nha bep van hoat dong`);
 
 
+//===================import====================
 
+// import { PI, add } from "../utils/math.js";
 
+// console.log(`so PI la ${PI}`);
 
+// const tong1 = add(3, 5)
 
-
-
-
-
-
-
+// console.log(`Tong la ${tong1}`);
 
 
 
