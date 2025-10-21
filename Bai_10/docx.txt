@@ -1,0 +1,22 @@
+tren git co branch
+- branch co nghia la moi truong lam viec khac nhau
+- trong branch co cac nhanh chinh de chay CI/CD (main). Code o main la code stable (ko co loi, on dinh nhat)
+- bth se day code sang cac nhanh khac, khi on dinh roi moi merge vao main, muon merge code thi phai tao merge request
+
+Command on git
+
+- git status: check xem dang o nhanh nao
+- git pull: update code, dong bo nhanh main
+- git checkout -b ten_branch // -b la branch
+
+check ts
+- ts-node:
+- command D
+
+instal faker
+- npm i @faker-js/faker@9.6.0
+- npm init -y : tao file package.json
+- tsc --init: tsconfig.json
+
+
+
