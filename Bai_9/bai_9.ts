@@ -150,9 +150,21 @@ function processPayment(totalAmount: number, method: string, amountGiven: number
     return `Phuong thuc thanh toan khong hop le`
 }
 
-newCustomerOrder.items.push({name: storeMenu[1]!.name, price: storeMenu[1]!.price}) //them store menu ca phe sua vao items
+// newCustomerOrder.items.push({name: storeMenu[1]!.name, price: storeMenu[1]!.price}) //them store menu ca phe sua vao items
 
-newCustomerOrder.items.push({name: storeMenu[2]!.name, price: storeMenu[2]!.price})  // them banh vao items
+// newCustomerOrder.items.push({name: storeMenu[2]!.name, price: storeMenu[2]!.price})  // them banh vao items
+
+// ko muon su dung !
+const selectedItem1 = storeMenu[1]
+const selectedItem2 = storeMenu[2]
+
+if(selectedItem1){
+    newCustomerOrder.items.push({name: selectedItem1.name, price: selectedItem1.price})
+}
+
+if(selectedItem2){
+    newCustomerOrder.items.push({name: selectedItem2.name, price: selectedItem2.price})
+}
 
 const totalAmount = calculateOrderTotal(newCustomerOrder)
 
@@ -167,18 +179,3 @@ console.log(paymentResult)
 //sau do dung 'git add .'
 // tiep tuc 'git commit -m 'hoan thanh bai 9' '
 // va 'git push'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
