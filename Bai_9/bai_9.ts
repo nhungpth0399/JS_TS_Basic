@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 console.log(`Hello from node.js`);
 
 
@@ -179,3 +180,17 @@ console.log(paymentResult)
 //sau do dung 'git add .'
 // tiep tuc 'git commit -m 'hoan thanh bai 9' '
 // va 'git push'
+=======
+
+let diemHienTai = '10'
+
+let diemBonus = 50
+
+let totalScore:Number = diemBonus + Number(diemHienTai)
+
+console.log(`Diem: ${totalScore}`);
+
+//npx tsc .\bai_9.ts bien dich tu TS sang JS
+
+
+>>>>>>> Stashed changes

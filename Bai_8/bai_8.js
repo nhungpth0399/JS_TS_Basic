@@ -293,13 +293,7 @@ console.log(`Bep truong dang lam banh, nhung nha bep van hoat dong`);
 
 //===================import====================
 
-// import { PI, add } from "../utils/math.js";
-
-// console.log(`so PI la ${PI}`);
-
-// const tong1 = add(3, 5)
-
-// console.log(`Tong la ${tong1}`);
+// 
 
 
 
