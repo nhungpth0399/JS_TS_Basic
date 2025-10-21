@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 console.log(`Hello from node.js`);
 
 
@@ -184,4 +184,4 @@ console.log(paymentResult)
 
 
 
->>>>>>> Stashed changes
+
