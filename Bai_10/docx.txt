@@ -7,16 +7,23 @@ Command on git
 
 - git status: check xem dang o nhanh nao
 - git pull: update code, dong bo nhanh main
-- git checkout -b ten_branch // -b la branch
+- git checkout -b ten_branch // -b la branch: tao branch moi
+- git checkout main: ve nhanh main
+- git checkout -b feature/bai11: tao branch cho bai 11
+
+// muon merge code tu branch bai 11 vao main thi xem phan dau bai 11
 
 check ts
 - ts-node:
 - command D
+- dau ? dung trong 2 truong hop: key la optional, khi ko check den gia tri la undefined
 
 instal faker
 - npm i @faker-js/faker@9.6.0
 - npm init -y : tao file package.json
 - tsc --init: tsconfig.json
 
-
+trong JS va TS co the co hoac ko da ke thua:
+- class thi ko co da ke thua
+- interface va type thi co da ke thua
 
