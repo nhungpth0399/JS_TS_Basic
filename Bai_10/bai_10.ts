@@ -1,181 +1,143 @@
-console.log(`Hello from node.js`);
 
 
-let diemHienTai = '100'
-
-let diemBonus = 10
-
-let totalScore = diemBonus + Number(diemHienTai)
-
-console.log(`Diem: ${totalScore}`);
-
-//npx tsc --init
-
-//ts-node .\bai_9.ts
-
-//========= Syntax ==============
-// tenbien: kieu du lieu = gia_tri
-
-//kieu du lieu nguyen thuy
-//string
-let customerName: string = 'Phan Thi Hong Nhung'
-
-//number
-let orderID: number = 123
-//boolean
-let isPaid: boolean = false
-//any: co the la bat cu loai du lieu nao
-let userName: any = 'Phan Nhung'
-
-// mot dong code nao do trong logic lam thay doi
-userName = 123
-
-//console.log(userName.toUpperCase()) //loi vi userName = 123 ko the dung ham upper case
-
-//void   return ra gia tri minh ko biet la kieu gi
-function printReceipt(orderID: number): void{
-    console.log(`In hoa don ${orderID}`)
-}
-
-printReceipt(1)
-
-//=========
-function tinhTong(a: number, b: number): number{
-    return a + b
-}
-
-const sum = tinhTong(3, 5)
-console.log(sum)
-
-//array
-// kieu_du_lieu[]
-
-let menu: string[] = ['latte', 'cappuchino']
-
-let score: number[] = [3, 4, 5]
-
-// object
-// dang object
-let coffeeOrder : {
-    orderID: number;
-    customerName: string;
-    isPaid: boolean;
-    itemCount: number
-}
-
-coffeeOrder = {
-    orderID: 120,
-    customerName: 'Jane',
-    isPaid: true,
-    itemCount: 3
-}
-
-console.log(`coffeeOrder`, coffeeOrder)
-
-// 
-
-let specialOrder : {
-    orderID1: number;
-    items: string[];
-    specialInstruction?: string
-}
-
-specialOrder = {
-    orderID1: 10,
-    items: ['espresso'],
-    specialInstruction: 'ok'
-}
-
-console.log(`Special Order: `, specialOrder)
-
-//==============
-
-const customerOrder: {
-    orderID: number;
-    status: string
-} = {
-    orderID: 123,
-    status: 'done'
-}
-
-console.log(`Customer Order`, customerOrder)
-
-
-//============ hoa don ===============
-
-const storeMenu: {
-    id: number;
+let product: {
+    id: string;
     name: string;
-    price: number
-}[] = [
-    {id: 1, name: 'Ca phe den', price: 25000},
-    {id: 2, name: 'Ca phe sua', price: 35000},
-    {id: 3, name: 'Banh ngot', price: 30000}
-]
-
-const newCustomerOrder: {
-    orderID: number;
-    customerName: string;
-    items: {name: string, price: number}[];
-    status: string;
-    note?: string
+    price: number;
+    tags?: string[];
+    calculateTax(rate: number): number
 } = {
-    orderID: 123456,
-    customerName: 'Nhung Phan',
-    items: [],
-    status: 'Pending',
-    note: 'it da, nhieu cafe'
-}
-
-function calculateOrderTotal(order: {items: {price: number}[]}): number{
-    let total = 0
-    for(const item of order.items){
-        total += item.price
+    id: 'abc-123',
+    name: 'Laptop',
+    price: 1500,
+    tags: ['electronic'],
+    calculateTax(rate: number){
+        return this.price * rate
     }
-    return total
 }
 
-function processPayment(totalAmount: number, method: string, amountGiven: number): string{
-    
-    if (method === 'card'){
-        return `Thanh toan thanh con ${totalAmount} bang the`
-    }else if (method === 'cash'){
-        const change = amountGiven - totalAmount
-        if (change < 0){
-            return `Khach dua thieu ${Math.abs(change)}`
-        }
-        return `Thanh toan thanh cong. voi so tien ${change}`
-    
+const tax = product.calculateTax(2)
+console.log(`tax`, tax)
+
+// type alias - type
+
+type Product = {
+    id: string;
+    name: string;
+    price: number;
+    tags?: string[];
+    calculateTax(rate: number): number
+}
+
+// su dung tao kieu
+const product2:Product = {
+    id: 'abc-124',
+    name: 'Mouse',
+    price: 3000,
+    tags: ['electronic'],
+    calculateTax(rate: number){
+        return this.price * rate
     }
-    return `Phuong thuc thanh toan khong hop le`
 }
 
-// newCustomerOrder.items.push({name: storeMenu[1]!.name, price: storeMenu[1]!.price}) //them store menu ca phe sua vao items
+console.log(product2.calculateTax(3))
 
-// newCustomerOrder.items.push({name: storeMenu[2]!.name, price: storeMenu[2]!.price})  // them banh vao items
+// dac tinh cua type alias so the su dung nhu sau:
 
-// ko muon su dung !
-const selectedItem1 = storeMenu[1]
-const selectedItem2 = storeMenu[2]
+// union types: dung khi muon gioi han gia tri cua cac bien
 
-if(selectedItem1){
-    newCustomerOrder.items.push({name: selectedItem1.name, price: selectedItem1.price})
+type OrderStatus = 'Pending' | 'Processing' | 'Delevered'
+type TestCaseStatus = 'Passed' | 'Failed'
+
+let currentStatus: OrderStatus = 'Pending'  //lay mot trong cac gia tri cua type
+
+console.log(`currentStatus`, currentStatus)
+
+let result: TestCaseStatus = 'Passed'
+
+// kieu giao: dung & giua 2 type
+type BasicInfo = {
+    id: number;
+    name: string
 }
 
-if(selectedItem2){
-    newCustomerOrder.items.push({name: selectedItem2.name, price: selectedItem2.price})
+type ContactInfo = {
+    email: string;
+    phone: string
 }
 
-const totalAmount = calculateOrderTotal(newCustomerOrder)
+type CustomerInfo = BasicInfo & ContactInfo
 
-console.log(totalAmount)
+const newCustomer: CustomerInfo = {
+    id: 101,
+    name: 'Nhung',
+    email: 'nhung@gmail.com',
+    phone: '12345'
+}
 
-const paymentResult = processPayment(totalAmount, 'card', 0)
-console.log(paymentResult)
+// interface 
+// tuong tu type
+// voi nguoi moi se dung chu yeu la interface khi define object va class type
+// cac truong hop con lai thi dung type
 
 
-//tao .gitignore // bo qua phan setting thu vien chi push code
-//Bai_9/node_modules/ 
-//sau do dung 'git add .'
-// tiep tuc 'git commit -m 'hoan thanh bai 9' '
-// va 'git push'
+interface IVehicle {
+    model: string;
+    year: number;
+    start(): void
+}
+
+const myCar: IVehicle = {
+    model: 'civic',
+    year: 2022,
+    start:() => console.log(`started car`)
+    
+}
+
+myCar.start()
+
+// ke thua: extends 
+
+type FileType = 'pdf' | 'epub'
+
+interface IBook {
+    title: string;
+    author: string
+}
+
+interface IEbook extends IBook {
+    fileType: FileType;
+    fileSize: 512
+}
+
+const myBook: IEbook = {
+    title: 'chao ngay moi',
+    author: 'Nhung',
+    fileType: 'epub',
+    fileSize: 512
+}
+
+// 1 class con chi ke thua duoc 1 class cha
+// 1 class con co the implement nhieu interface
+
+interface IPrintable {
+    print(): void
+}
+
+interface IStorable{
+    save(): string
+}
+
+interface IPDFDocument extends IPrintable, IStorable, IBook {
+    pageCount: number
+}
+
+// const pdfFile: IPDFDocument = {
+
+// }
+
+// chua bai tap 1:12 tuyen duong (nao can chua xem lai sau)
+// Dau bai 11 la merge branch tren github vao main
+
+
+
