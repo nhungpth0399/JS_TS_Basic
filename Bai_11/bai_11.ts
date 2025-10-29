@@ -211,21 +211,106 @@ runService()
 //     "message": "Success",
 //     "response": [
 //       {
-//         "id": 10,
-//         "name": "Tester v1.1",
-//         "category_id": 1,
+//         "id": 371,
+//         "name": "Test3107",
+//         "category_id": 122,
 //         "price": 1200,
-//         "release_date": "2023/12/29",
-//         "image_ids": [
+//         "release_date": "2025/07/30",
+//         "status": 1,
+//         "image": []
+//       },
+//       {
+//         "id": 372,
+//         "name": "Testing API V7906",
+//         "category_id": 139,
+//         "price": 110,
+//         "release_date": "2025/02/28",
+//         "status": 1,
+//         "image": [
 //           {
-//             "id": 10,
-//             "path": "public/images/ajIznyq6lrR4inkCmQbI5W5Z933T6pDSk1qwHu6I.png"
+//             "id": 61,
+//             "path": "public/images/0rS5miO4nPAv9unVQ0XomaUjJENCt6E1R1eN0aRq.png"
 //           }
-//         ],
-//         "status": true
-//       }
-//     ]
-//   }
+//         ]
+//       },
+
+interface IImageAPI{
+    id: number;
+    path: string
+}
+
+
+interface IBookAPI{
+    id: number;
+    name: string;
+    category_id: number;
+    price: number;
+    release_date: string;
+    status: number;
+    image: IImageAPI[]
+}
+
+interface IResponseAPI{
+    message: string;
+    response: IBookAPI[]
+}
+
+// cac task vu: doc file, ket noi db, call api,... la bat dong bo nen phai dung async, await
+// bat dong bo la cac hanh dong xay ra trong thoi gian minh ko biet truoc duoc
+
+async function fetchBooks(): Promise<IResponseAPI> {
+    
+    const apiUrl = 'https://api.anhtester.com/api/books'
+
+    try{
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json'
+            }
+        })
+        if(!response.ok){
+            throw new Error(`Loi API: ${response.status} ${response.statusText}`)
+        }
+        const data: IResponseAPI = await response.json()
+        return data
+
+    }catch(error){
+        console.error('Khong the lay du lieu sach', error)
+        throw error
+    }
+}
+
+// bai toan lay image.path() => han vao bien imageUrl (la image, .url) neu khong co thi tra ra khong co anh
+async function displayBooks() {
+    
+    try{
+        console.log(`Dang tai danh sach sach`)
+
+        const apiData = await fetchBooks()
+
+        apiData.response.forEach(book => {
+
+            const imageUrl = book.image.length > 0 ? book.image[0]?.path : 'Khong co anh'
+            console.log(`- ID: ${book.id}, Ten: ${book.name}, Gia: ${book.price}`)
+            console.log(`Hinh anh ${imageUrl}`)
+            
+        })
+        
+    }catch(error){
+        console.log(`Da xay ra loi`)
+        
+    }
+}
+
+displayBooks()
+
+// Login xong Post API thi se co 2 lan call api
+// 1 call lay token
+// 2 goi POST de tao danh sach
+// https://blog.thanhnamnguyen.dev/cac-cach-fetch-api-su-dung-javascript
+
+
 
 
 
