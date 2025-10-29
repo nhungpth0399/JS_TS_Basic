@@ -22,8 +22,13 @@ instal faker
 - npm i @faker-js/faker@9.6.0
 - npm init -y : tao file package.json
 - tsc --init: tsconfig.json
+- npm i @types/node
+- npm i xlsx
+- npm i @types/xlsx
+
 
 trong JS va TS co the co hoac ko da ke thua:
 - class thi ko co da ke thua
 - interface va type thi co da ke thua
+- them "type": "module" vao file package.json
 
