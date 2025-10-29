@@ -57,7 +57,7 @@ export class LoginPage{
 
         console.log(`LoginPage: ket qua thuc te la ${actualResult}`)
         
-        return actualResult === expectedResult7
+        return actualResult === expectedResult
     }
 }
 

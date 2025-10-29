@@ -1,0 +1,29 @@
+{
+  "name": "js_ts_basic",
+  "version": "1.0.0",
+  "description": "JS TS co ban",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhungpth0399/JS_TS_Basic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhungpth0399/JS_TS_Basic/issues"
+  },
+  "homepage": "https://github.com/nhungpth0399/JS_TS_Basic#readme",
+  "dependencies": {
+    "@types/node": "^24.9.2",
+    "@types/xlsx": "^0.0.35",
+    "xlsx": "^0.18.5"
+  }
+}
