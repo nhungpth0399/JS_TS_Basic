@@ -11,7 +11,10 @@ async function runLoginTest() {
     const loginPage = new LoginPage()
 
     //doc file json
-    const loginCredentials = await dataReader.readJsonFile<ILoginData>('../data/login-credentials.json')
+    //const loginCredentials = await dataReader.readJsonFile<ILoginData>('../data/login-credentials.json')
+    
+    //doc file excel
+    const loginCredentials = await dataReader.readXlsxFile<ILoginData>('../data/login-data.xlsx', 'Sheet1')
     if(loginCredentials.length === 0){
         console.log(`Khong co du lieu test de chay. Ket thuc`)
         return
