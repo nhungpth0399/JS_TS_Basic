@@ -46,28 +46,28 @@ soDienThoai.forEach(inSo)  //callback function
 
 // funtion() => this la doi tuong toan cuc hoac la indefined trong moi truong strict mode. nhu tac ke hoa
 
-// function simpleFunction(){
-//     console.log(`---Bat dau simple funtion---`)
+function simpleFunction(){
+    console.log(`---Bat dau simple funtion---`)
     
-//     console.log(`gia tri cua this la ${this}`)
+    console.log(`gia tri cua this la ${this}`)
     
-//     if(this === undefined){
-//         console.log(`Ket qua this la undefined`)
+    if(this === undefined){
+        console.log(`Ket qua this la undefined`)
         
-//     }
-// }
+    }
+}
 
 
-// simpleFunction()
+simpleFunction()
 
-// const myOj = {
-//     name: 'Ngu canh',
-//     callFunc: simpleFunction
-// }
+const myOj = {
+    name: 'Ngu canh',
+    callFunc: simpleFunction
+}
 
 
-// console.log(`Goi ham qua object`)
-// myOj.callFunc()
+console.log(`Goi ham qua object`)
+myOj.callFunc()
 
 // arrow Function() ..... this mang tinh tinh (static) va ke thua
 // muon this cua moi truong o noi no duoc tao ra va giu gia tri do mai mai. giong nhu hinh xam, ko the thay doi
@@ -77,19 +77,22 @@ class TeamProblem{
     minNameLength: number;
     members: string[] = []
 
-    constructor (name: string, minNamLength: number){
+    constructor (name: string, minNameLength: number){
         this.name = name
-        this.minNameLength = minNamLength
+        this.minNameLength = minNameLength
     }
 
     //phuong thuc thong thuong
-    isValidName(name: string): boolean{
+    isValidName = (name: string): boolean =>{
         return name.length > this.minNameLength
     }
-
+// neu dung function thuong se cho ra gia tri cua minNameLength la undefined
+// vi this ko biet dang goi boi ham nao
+// khac phu bang cach doi isValidName thanh arrow function() nhu cach o tren
+    
     addMembers(newMember: string[]){
         const validMember = newMember.filter(this.isValidName)
-        // map, filter, reduce, ...
+        // map, filter, reduce, ... can phai truyen arrow function thi moi xu ly duoc viec mat ngu canh khi goi ham
         this.members = [...this.members, ...validMember]
     }
 }
